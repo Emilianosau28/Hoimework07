@@ -1,43 +1,63 @@
 ---
 title: "Homework7.Rmd"
-author: "Emiliano Saucedo"
+author: "Emiliano Saucedo, Pramit Vyas, Blake Underwood, Skyler Young"
 date: "2023-03-27"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
 ```{r}
+library(tidyverse)
 library(classdata)
 data("happy", package = "classdata")
 head(happy)
 ```
 
-# question 1
+## question 1
 
 ```{r}
 # replacing missing values with NA
-HAPPY <- replace(HAPPY, HAPPY == "IAP", NA)
+HAPPY <- replace(happy, happy == "IAP", NA)
 HAPPY <- replace(HAPPY, HAPPY == "DK", NA)
 HAPPY <- replace(HAPPY, HAPPY == "NA", NA)
 ```
 
-# question 2
+## question 2
 ```{r}
 # change values to numeric
-HAPPY <- HAPPY %>% mutate(
-  age = replace(AGE, AGE == "89 AND OLDER", 89),
+happy2 <- HAPPY %>% mutate(
+  age = replace(age, age == "89 AND OLDER", 89),
   age = as.numeric(age)
-) %>% select(-AGE)
+)
 ```
-# question 3
+## question 3
 ```{r}
-happy %>% summarise(average.age = mean(age, na.rm = TRUE))
-group_by(happy,marital) %>% summarise(average.age.m = mean(age, na.rm = TRUE)) %>% mutate(rank.by.age = rank(average.age.m))
+levels(happy2$marital) = happy2$marital %>% fct_reorder(happy2$age, .fun = mean)
 ```
 
+
+# Part 2
+
+## Pramit Vyas
 ``` {r}
-#part2
-ggplot(data = happy, aes(x = , y = ))
+happy2 %>% drop_na(partyid) %>% drop_na(degree) %>% mutate(party = ifelse(grepl("dem", partyid), "Dem", ifelse(grepl("rep", partyid), "Rep", "Ind"))) %>% drop_na(sex, happy, health) %>% ggplot()+
+    geom_mosaic(aes(x = product(degree, party), fill = degree), 
+                na.rm = TRUE, divider =  mosaic("h"))+
+    theme_bw()+
+    theme(plot.title = element_text(hjust=0.5, size = rel(2)),
+          axis.title.y = element_text(size = rel(1.8)),
+          axis.title.x = element_text(size = rel(1.8)),
+          axis.text.x = element_text(size = rel(1.8)),
+          axis.text.y = element_text(size = rel(1.8)),
+          strip.text.y = element_text(size = rel(1.8)))+
+    labs(x = "Party", 
+         y = "Education Level", 
+         fill = "Education Level", 
+         title = "Mosaic Plot of Party by Education Level") + facet_wrap(~happy)
 ```
 
+
+It seems like in general the relationship between what party someone identifies as and hw much education they have remains constant throughout different happiness levels. Some key differences are that people that aren't too happy have lower education accross party lines, as fewer of them have gone to college. It also seems like republicans tend to by happier than democrats, meanwhile being independent doesn't seem to affect happiness. Also seems like for happier people, being more educated, such as getting a graduate degree means you are more likely to be democrat compared to the same contraints except less happy.
