@@ -37,3 +37,27 @@ happy2 <- HAPPY %>% mutate(
 ```{r}
 levels(happy2$marital) = happy2$marital %>% fct_reorder(happy2$age, .fun = mean)
 ```
+
+
+# Part 2
+
+## Pramit Vyas
+``` {r}
+happy2 %>% drop_na(partyid) %>% drop_na(degree) %>% mutate(party = ifelse(grepl("dem", partyid), "Dem", ifelse(grepl("rep", partyid), "Rep", "Ind"))) %>% drop_na(sex, happy, health) %>% ggplot()+
+    geom_mosaic(aes(x = product(degree, party), fill = degree), 
+                na.rm = TRUE, divider =  mosaic("h"))+
+    theme_bw()+
+    theme(plot.title = element_text(hjust=0.5, size = rel(2)),
+          axis.title.y = element_text(size = rel(1.8)),
+          axis.title.x = element_text(size = rel(1.8)),
+          axis.text.x = element_text(size = rel(1.8)),
+          axis.text.y = element_text(size = rel(1.8)),
+          strip.text.y = element_text(size = rel(1.8)))+
+    labs(x = "Party", 
+         y = "Education Level", 
+         fill = "Education Level", 
+         title = "Mosaic Plot of Party by Education Level") + facet_wrap(~happy)
+```
+
+
+It seems like in general the relationship between what party someone identifies as and hw much education they have remains constant throughout different happiness levels. Some key differences are that people that aren't too happy have lower education accross party lines, as fewer of them have gone to college. It also seems like republicans tend to by happier than democrats, meanwhile being independent doesn't seem to affect happiness. Also seems like for happier people, being more educated, such as getting a graduate degree means you are more likely to be democrat compared to the same contraints except less happy.
