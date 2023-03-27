@@ -61,3 +61,19 @@ happy2 %>% drop_na(partyid) %>% drop_na(degree) %>% mutate(party = ifelse(grepl(
 
 
 It seems like in general the relationship between what party someone identifies as and hw much education they have remains constant throughout different happiness levels. Some key differences are that people that aren't too happy have lower education accross party lines, as fewer of them have gone to college. It also seems like republicans tend to by happier than democrats, meanwhile being independent doesn't seem to affect happiness. Also seems like for happier people, being more educated, such as getting a graduate degree means you are more likely to be democrat compared to the same contraints except less happy.
+
+## Blake Underwood
+
+```{r}
+ggplot(happy) +
+  aes(x = happy, fill = factor(degree)) +
+  geom_bar(position = "fill")
+```
+We can clearly see from the porportions on the bar chart that those with higher level degrees such as Bachelors and Graduate tend to have higher porportions of "Very happy" people relative to their porportion of "Not happy" people. Those that didn't graduate high school have a higher proportion of "Not happy" relative to the porportion of "Very happy".
+
+```{r}
+ggplot(happy) +
+  aes(x = happy, fill = factor(partyid)) +
+  geom_bar(position = "fill")
+```
+The proportion of republicans increases from the "Not happy" category to the "Very happy" category. The Independent and democratic parties decrease in their porportions of "Not happy" to "Very happy". We can conclude that republicans self-report higher level of happiness then independents and democrats. 
