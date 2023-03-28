@@ -101,3 +101,17 @@ ggplot(na.omit(HAPPY), aes(x = health, fill = factor(sex))) +
   scale_fill_discrete(name = "Sex", labels = c("Male", "Female"))
 ```
 The plot displays the perceived health distribution by sex in the HAPPY dataset, excluding missing values. The x-axis depicts the levels of perceived health (1-5), while the y-axis shows the count of individuals in each group. Blue bars represent males, while orange bars represent females. More females than males are present in the dataset, and they tend to report slightly worse perceived health. Level 4 is the most common for both sexes, but females have a larger proportion at level 3. Overall, the plot suggests variation in the perceived health distribution by sex in the dataset.
+
+##Emiliano Saucedo
+```
+ggplot(happy) +
+  aes(x = happy, fill = factor(health)) +
+  geom_bar(position = "fill")
+```
+Alot people get better health their happiness increases. According to the proportion the peoiple with mor health have the most happiness.
+```
+ggplot(happy) +
+  aes(x = happy, fill = factor(finrela)) +
+  geom_bar(position = "fill")
+```
+ 
