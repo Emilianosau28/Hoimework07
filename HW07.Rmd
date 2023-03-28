@@ -1,6 +1,6 @@
 ---
 title: "Homework7.Rmd"
-author: "Emiliano Saucedo, Pramit Vyas, Blake Underwood, Skyler Young"
+author: "Emiliano Saucedo, Pramit Vyas, Blake Underwood, Skyler Young, Zach Willens"
 date: "2023-03-27"
 output: html_document
 ---
@@ -77,3 +77,27 @@ ggplot(happy) +
   geom_bar(position = "fill")
 ```
 The proportion of republicans increases from the "Not happy" category to the "Very happy" category. The Independent and democratic parties decrease in their porportions of "Not happy" to "Very happy". We can conclude that republicans self-report higher level of happiness then independents and democrats. 
+
+
+## Zach Willens
+
+```{r}
+ggplot(happy) +
+  aes(x = age, fill = factor(happy)) +
+  geom_bar(position = "fill")
+```
+As a person ages we can see a slight increase in "very Happy", but as well to "Not too happy", which could signify that happiness is a devisive subject when one gets older in life. With the stereotypes of the "grumpy old person" coming to mind, as well as the "wise old man tales"
+
+
+## Skyler Young
+
+```{r}
+ggplot(na.omit(HAPPY), aes(x = health, fill = factor(sex))) +
+  geom_bar(position = "dodge", alpha = 0.6) +
+  labs(title = "Distribution of perceived health by sex (excluding missing values)",
+       x = "Perceived health",
+       y = "Count",
+       fill = "Sex") +
+  scale_fill_discrete(name = "Sex", labels = c("Male", "Female"))
+```
+The plot displays the perceived health distribution by sex in the HAPPY dataset, excluding missing values. The x-axis depicts the levels of perceived health (1-5), while the y-axis shows the count of individuals in each group. Blue bars represent males, while orange bars represent females. More females than males are present in the dataset, and they tend to report slightly worse perceived health. Level 4 is the most common for both sexes, but females have a larger proportion at level 3. Overall, the plot suggests variation in the perceived health distribution by sex in the dataset.
